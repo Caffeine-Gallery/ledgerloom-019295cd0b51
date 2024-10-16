@@ -8,7 +8,7 @@ use std::collections::{HashMap, HashSet};
 
 // Token metadata
 const TOKEN_NAME: &str = "Example Token";
-const TOKEN_SYMBOL: &str = "EXT";
+const TOKEN_SYMBOL: &str = "Ξ";
 const TOKEN_DECIMALS: u8 = 8;
 const TOKEN_TOTAL_SUPPLY: u128 = 0;
 
