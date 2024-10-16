@@ -23,9 +23,11 @@ export interface GetChallengeResponse {
   'parent_hash' : Uint8Array | number[],
 }
 export interface Offer { 'amount' : bigint, 'num_attached_cycles' : bigint }
-export type Result = { 'ok' : null } |
+export type Result = { 'ok' : string } |
   { 'err' : string };
-export type Result_1 = { 'ok' : bigint } |
+export type Result_1 = { 'ok' : null } |
+  { 'err' : string };
+export type Result_2 = { 'ok' : bigint } |
   { 'err' : string };
 export interface Solution {
   'principal' : [] | [Principal],
@@ -61,16 +63,17 @@ export interface _SERVICE {
   'icrc2_decimals' : ActorMethod<[], number>,
   'icrc2_name' : ActorMethod<[], string>,
   'icrc2_symbol' : ActorMethod<[], string>,
-  'icrc2_transfer' : ActorMethod<[Principal, bigint], Result_1>,
+  'icrc2_transfer' : ActorMethod<[Principal, bigint], Result_2>,
   'icrc3_get_account_transactions' : ActorMethod<
     [Principal, bigint, bigint],
     Array<Transaction>
   >,
   'icrc3_get_transaction' : ActorMethod<[bigint], [] | [Transaction]>,
   'icrc3_get_transactions' : ActorMethod<[bigint, bigint], Array<Transaction>>,
-  'mint' : ActorMethod<[Principal, bigint], Result>,
+  'mint' : ActorMethod<[Principal, bigint], Result_1>,
   'submit_offer' : ActorMethod<[Offer], SubmitOfferResponse>,
   'submit_solution' : ActorMethod<[Solution], SubmitSolutionResponse>,
+  'upload_wasm_module' : ActorMethod<[Uint8Array | number[]], Result>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

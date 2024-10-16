@@ -1,6 +1,5 @@
 import Bool "mo:base/Bool";
 import Hash "mo:base/Hash";
-import Nat32 "mo:base/Nat32";
 
 import Array "mo:base/Array";
 import Blob "mo:base/Blob";
@@ -12,6 +11,7 @@ import Int "mo:base/Int";
 import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
 import Nat8 "mo:base/Nat8";
+import Nat32 "mo:base/Nat32";
 import Nat64 "mo:base/Nat64";
 import Option "mo:base/Option";
 import Principal "mo:base/Principal";
@@ -42,6 +42,9 @@ actor ICRC2Ledger {
 
     private stable var transactions : [Transaction] = [];
     private stable var transactionCount : Nat = 0;
+
+    // Wasm module storage
+    private stable var storedWasmModule : ?Blob = null;
 
     // Initialize the ledger
     private func init() : () {
@@ -229,6 +232,31 @@ actor ICRC2Ledger {
             num_cycles = 5000;
             total_amount = 10000;
         }
+    };
+
+    // Simple hash function using XOR
+    private func simpleHash(data: Blob) : Nat32 {
+        var hash : Nat32 = 0;
+        for (byte in Blob.toArray(data).vals()) {
+            hash := hash ^ Nat32.fromNat(Nat8.toNat(byte));
+        };
+        hash
+    };
+
+    // New function to upload and store a gzipped wasm module
+    public func upload_wasm_module(gzippedModule: Blob) : async Result.Result<Text, Text> {
+        // TODO: Implement actual validation of the gzipped wasm module
+        // For now, we'll just check if the blob is not empty
+        if (Blob.toArray(gzippedModule).size() == 0) {
+            return #err("Invalid or empty module");
+        };
+
+        // Store the module
+        storedWasmModule := ?gzippedModule;
+
+        // Calculate and return the hash
+        let hash = simpleHash(gzippedModule);
+        #ok(Nat32.toText(hash))
     };
 
     // System functions for upgrades

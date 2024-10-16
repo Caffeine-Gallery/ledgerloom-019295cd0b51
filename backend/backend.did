@@ -34,15 +34,20 @@ type Solution =
    "principal": opt principal;
    time: nat64;
  };
-type Result_1 = 
+type Result_2 = 
  variant {
    err: text;
    ok: nat;
  };
-type Result = 
+type Result_1 = 
  variant {
    err: text;
    ok;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: text;
  };
 type Offer = 
  record {
@@ -83,12 +88,13 @@ service : {
   icrc2_decimals: () -> (nat8) query;
   icrc2_name: () -> (text) query;
   icrc2_symbol: () -> (text) query;
-  icrc2_transfer: (principal, nat) -> (Result_1);
+  icrc2_transfer: (principal, nat) -> (Result_2);
   icrc3_get_account_transactions: (principal, nat, nat) ->
    (vec Transaction) query;
   icrc3_get_transaction: (nat) -> (opt Transaction) query;
   icrc3_get_transactions: (nat, nat) -> (vec Transaction) query;
-  mint: (principal, nat) -> (Result);
+  mint: (principal, nat) -> (Result_1);
   submit_offer: (Offer) -> (SubmitOfferResponse);
   submit_solution: (Solution) -> (SubmitSolutionResponse);
+  upload_wasm_module: (blob) -> (Result);
 }
