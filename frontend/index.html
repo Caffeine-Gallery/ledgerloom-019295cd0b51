@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICRC-2 Token Dashboard</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ICRC-2 Token Dashboard</h1>
+        <div id="token-info">
+            <p>Name: <span id="token-name"></span></p>
+            <p>Symbol: <span id="token-symbol"></span></p>
+            <p>Decimals: <span id="token-decimals"></span></p>
+            <p>Total Supply: <span id="token-supply"></span></p>
+        </div>
+        <div id="balance-check">
+            <h2>Check Balance</h2>
+            <input type="text" id="balance-principal" placeholder="Enter Principal ID">
+            <button id="check-balance">Check Balance</button>
+            <p>Balance: <span id="balance-result"></span></p>
+        </div>
+        <div id="transfer">
+            <h2>Transfer Tokens</h2>
+            <input type="text" id="transfer-to" placeholder="Recipient Principal ID">
+            <input type="number" id="transfer-amount" placeholder="Amount">
+            <button id="transfer-tokens">Transfer</button>
+            <p id="transfer-result"></p>
+        </div>
+    </div>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
