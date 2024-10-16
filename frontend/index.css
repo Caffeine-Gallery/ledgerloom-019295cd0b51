@@ -83,7 +83,7 @@ main {
     color: var(--primary-color);
 }
 
-.token-info, .token-actions, .faq {
+.content-box, .token-section, .faq {
     background-color: var(--card-background);
     border-radius: 15px;
     padding: 2rem;
@@ -92,9 +92,15 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.token-info:hover, .token-actions:hover, .faq:hover {
+.content-box:hover, .token-section:hover, .faq:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.token-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .info-grid {
@@ -210,6 +216,10 @@ footer {
 @media (max-width: 768px) {
     .info-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .token-section {
+        flex-direction: column;
     }
 }
 

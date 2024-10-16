@@ -14,6 +14,8 @@
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#minting">Minting</a></li>
+                <li><a href="#token">Token</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
         </nav>
@@ -33,39 +35,50 @@
             <p>Welcome to the future of decentralized finance</p>
         </section>
 
-        <section id="about" class="token-info">
-            <h2>Token Information</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <h3>Name</h3>
-                    <p id="token-name"></p>
-                </div>
-                <div class="info-item">
-                    <h3>Symbol</h3>
-                    <p id="token-symbol"></p>
-                </div>
-                <div class="info-item">
-                    <h3>Decimals</h3>
-                    <p id="token-decimals"></p>
-                </div>
-                <div class="info-item">
-                    <h3>Maximum Supply</h3>
-                    <p id="token-max-supply">1,000,000</p>
-                </div>
-            </div>
+        <section id="about" class="content-box">
+            <h2>About Our Token</h2>
+            <p>Our ICRC-2 token is designed to revolutionize decentralized finance on the Internet Computer. It offers fast, secure, and scalable transactions, enabling a wide range of financial applications and use cases.</p>
         </section>
 
-        <section id="actions" class="token-actions">
-            <div class="action-card">
-                <h2>Check Balance</h2>
-                <input type="text" id="balance-principal" placeholder="Enter Principal ID">
-                <button id="check-balance">Check Balance</button>
-                <p>Balance: <span id="balance-result"></span></p>
+        <section id="minting" class="content-box">
+            <h2>Token Minting</h2>
+            <p>The minting process for our token is carefully controlled to ensure stability and fairness. New tokens are minted based on predefined rules and community governance decisions, maintaining the token's value and utility within the ecosystem.</p>
+        </section>
+
+        <section id="token" class="token-section">
+            <div class="token-info">
+                <h2>Token Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Name</h3>
+                        <p id="token-name"></p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Symbol</h3>
+                        <p id="token-symbol"></p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Decimals</h3>
+                        <p id="token-decimals"></p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Maximum Supply</h3>
+                        <p id="token-max-supply">1,000,000</p>
+                    </div>
+                </div>
             </div>
-            <div class="action-card">
-                <h2>Total Supply</h2>
-                <button id="fetch-total-supply">Fetch Total Supply</button>
-                <p>Total Supply: <span id="total-supply-result"></span></p>
+            <div class="token-actions">
+                <div class="action-card">
+                    <h2>Check Balance</h2>
+                    <input type="text" id="balance-principal" placeholder="Enter Principal ID">
+                    <button id="check-balance">Check Balance</button>
+                    <p>Balance: <span id="balance-result"></span></p>
+                </div>
+                <div class="action-card">
+                    <h2>Total Supply</h2>
+                    <button id="fetch-total-supply">Fetch Total Supply</button>
+                    <p>Total Supply: <span id="total-supply-result"></span></p>
+                </div>
             </div>
         </section>
 
