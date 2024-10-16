@@ -4,6 +4,8 @@
     --background-color: #f0f0f0;
     --text-color: #333333;
     --card-background: #ffffff;
+    --button-hover-light: #3a8dff;
+    --button-hover-dark: #008000;
 }
 
 body {
@@ -170,8 +172,12 @@ button {
 }
 
 button:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--button-hover-light);
     transform: scale(1.05);
+}
+
+.dark-mode button:hover {
+    background-color: var(--button-hover-dark);
 }
 
 .faq-item {
