@@ -9,21 +9,49 @@
 <body>
     <header>
         <h1>Example Token (Ξ)</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#minting">Minting</a></li>
+                <li><a href="#token">Token</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
-        <section id="balance">
-            <h2>Your Balance</h2>
-            <p id="balance-amount">Loading...</p>
+        <section id="home">
+            <h2>Welcome to Example Token</h2>
+            <p>Explore the future of decentralized finance with our innovative token.</p>
         </section>
-        <section id="transfer">
-            <h2>Transfer Tokens</h2>
-            <form id="transfer-form">
-                <label for="recipient">Recipient:</label>
-                <input type="text" id="recipient" required>
-                <label for="amount">Amount:</label>
-                <input type="number" id="amount" required min="0">
-                <button type="submit">Transfer</button>
-            </form>
+        <section id="about" class="hidden">
+            <h2>About Us</h2>
+            <p>Learn about our mission and the team behind Example Token.</p>
+        </section>
+        <section id="minting" class="hidden">
+            <h2>Token Minting</h2>
+            <p>Information about the minting process will be displayed here.</p>
+        </section>
+        <section id="token" class="hidden">
+            <h2>Token Information</h2>
+            <div id="balance">
+                <h3>Your Balance</h3>
+                <p id="balance-amount">Loading...</p>
+            </div>
+            <div id="transfer">
+                <h3>Transfer Tokens</h3>
+                <form id="transfer-form">
+                    <label for="recipient">Recipient:</label>
+                    <input type="text" id="recipient" required>
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" required min="0">
+                    <button type="submit">Transfer</button>
+                </form>
+            </div>
+        </section>
+        <section id="faq" class="hidden">
+            <h2>Frequently Asked Questions</h2>
+            <p>Common questions and answers about Example Token will be listed here.</p>
         </section>
     </main>
     <footer>
