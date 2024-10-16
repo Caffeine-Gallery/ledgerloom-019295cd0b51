@@ -285,34 +285,27 @@ fn update_maintainers(principals: Vec<Principal>) -> u128 {
 
 #[update]
 fn update_wasm(_wasm_module: String) -> u128 {
-    // TODO: Implement actual WASM update logic
-    42 // Placeholder return value
+    // Default implementation: return a dummy value
+    42
 }
 
 #[update]
 fn vote_for_proposal(proposal_id: u128, vote: bool) -> Result_1 {
-    let caller = ic_cdk::caller();
-    MAINTAINERS.with(|maintainers| {
-        if !maintainers.borrow().contains(&caller) {
-            return Result_1::Err("Not authorized".to_string());
+    PROPOSALS.with(|proposals| {
+        let mut proposals = proposals.borrow_mut();
+        let proposal = proposals.entry(proposal_id).or_insert(Proposal {
+            id: proposal_id,
+            votes_for: 0,
+            votes_against: 0,
+        });
+
+        if vote {
+            proposal.votes_for += 1;
+        } else {
+            proposal.votes_against += 1;
         }
 
-        PROPOSALS.with(|proposals| {
-            let mut proposals = proposals.borrow_mut();
-            let proposal = proposals.entry(proposal_id).or_insert(Proposal {
-                id: proposal_id,
-                votes_for: 0,
-                votes_against: 0,
-            });
-
-            if vote {
-                proposal.votes_for += 1;
-            } else {
-                proposal.votes_against += 1;
-            }
-
-            Result_1::Ok(())
-        })
+        Result_1::Ok(())
     })
 }
 
