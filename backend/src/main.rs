@@ -4,7 +4,7 @@ use ic_cdk::export::candid;
 use ic_cdk_macros::*;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 // Token metadata
 const TOKEN_NAME: &str = "Example Token";
@@ -17,6 +17,8 @@ thread_local! {
     static BALANCES: RefCell<HashMap<Principal, u128>> = RefCell::new(HashMap::new());
     static TRANSACTIONS: RefCell<Vec<Transaction>> = RefCell::new(Vec::new());
     static STORED_WASM_MODULE: RefCell<Option<Vec<u8>>> = RefCell::new(None);
+    static MAINTAINERS: RefCell<HashSet<Principal>> = RefCell::new(HashSet::new());
+    static PROPOSALS: RefCell<HashMap<u128, Proposal>> = RefCell::new(HashMap::new());
 }
 
 #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
@@ -93,6 +95,19 @@ struct GetBestOfferResponse {
     amount: u64,
     num_cycles: u64,
     total_amount: u64,
+}
+
+#[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+struct Proposal {
+    id: u128,
+    votes_for: u128,
+    votes_against: u128,
+}
+
+#[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
+enum Result_1 {
+    Ok(()),
+    Err(String),
 }
 
 #[query]
@@ -254,6 +269,51 @@ fn upload_wasm_module(gzipped_module: Vec<u8>) -> Result<String, String> {
 
     let hash = simple_hash(&gzipped_module);
     Ok(hash.to_string())
+}
+
+#[update]
+fn update_maintainers(principals: Vec<Principal>) -> u128 {
+    MAINTAINERS.with(|maintainers| {
+        let mut maintainers = maintainers.borrow_mut();
+        maintainers.clear();
+        for principal in principals {
+            maintainers.insert(principal);
+        }
+        maintainers.len() as u128
+    })
+}
+
+#[update]
+fn update_wasm(_wasm_module: String) -> u128 {
+    // TODO: Implement actual WASM update logic
+    42 // Placeholder return value
+}
+
+#[update]
+fn vote_for_proposal(proposal_id: u128, vote: bool) -> Result_1 {
+    let caller = ic_cdk::caller();
+    MAINTAINERS.with(|maintainers| {
+        if !maintainers.borrow().contains(&caller) {
+            return Result_1::Err("Not authorized".to_string());
+        }
+
+        PROPOSALS.with(|proposals| {
+            let mut proposals = proposals.borrow_mut();
+            let proposal = proposals.entry(proposal_id).or_insert(Proposal {
+                id: proposal_id,
+                votes_for: 0,
+                votes_against: 0,
+            });
+
+            if vote {
+                proposal.votes_for += 1;
+            } else {
+                proposal.votes_against += 1;
+            }
+
+            Result_1::Ok(())
+        })
+    })
 }
 
 // Required by candid to generate did files
