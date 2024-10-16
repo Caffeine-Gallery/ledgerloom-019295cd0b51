@@ -1,3 +1,30 @@
+type SubmitSolutionResponse = 
+ variant {
+   Err: SolutionRejected;
+   Ok: SolutionAccepted;
+ };
+type SubmitOfferResponse = 
+ variant {
+   Accepted;
+   Rejected: text;
+ };
+type SolutionRejected = 
+ variant {
+   ChallengeMismatch;
+   InvalidSolution;
+   Other: text;
+ };
+type SolutionAccepted = 
+ record {
+   cur_min_ones: nat8;
+   time: nat64;
+ };
+type Solution = 
+ record {
+   bytes: blob;
+   "principal": opt principal;
+   time: nat64;
+ };
 type Result_1 = 
  variant {
    err: text;
@@ -8,7 +35,40 @@ type Result =
    err: text;
    ok;
  };
+type Offer = 
+ record {
+   amount: nat64;
+   num_attached_cycles: nat64;
+ };
+type GetChallengeResponse = 
+ record {
+   min_num_ones: nat8;
+   parent_hash: blob;
+   randomness: nat32;
+   time: nat64;
+   version: nat8;
+ };
+type GetBestSolutionResponse = 
+ record {
+   cur_min_ones: nat8;
+   time: nat64;
+ };
+type GetBestOfferResponse = 
+ record {
+   amount: nat64;
+   num_cycles: nat64;
+   total_amount: nat64;
+ };
+type GetAvailableTokenSupplyResponse = 
+ record {
+   time: nat64;
+   total_amount: nat8;
+ };
 service : {
+  get_available_token_supply: () -> (GetAvailableTokenSupplyResponse);
+  get_best_offer: () -> (GetBestOfferResponse);
+  get_best_solution: () -> (GetBestSolutionResponse);
+  get_challenge: () -> (GetChallengeResponse);
   icrc1_total_supply: () -> (nat) query;
   icrc2_balance_of: (principal) -> (nat) query;
   icrc2_decimals: () -> (nat8) query;
@@ -16,4 +76,6 @@ service : {
   icrc2_symbol: () -> (text) query;
   icrc2_transfer: (principal, nat) -> (Result_1);
   mint: (principal, nat) -> (Result);
+  submit_offer: (Offer) -> (SubmitOfferResponse);
+  submit_solution: (Solution) -> (SubmitSolutionResponse);
 }

@@ -1,4 +1,6 @@
 import Hash "mo:base/Hash";
+import Nat32 "mo:base/Nat32";
+import Nat64 "mo:base/Nat64";
 
 import Array "mo:base/Array";
 import Blob "mo:base/Blob";
@@ -73,6 +75,107 @@ actor ICRC2Ledger {
         let balance = Option.get(balancesMap.get(to), 0);
         balancesMap.put(to, balance + amount);
         #ok(())
+    };
+
+    // New types
+    public type GetChallengeResponse = {
+        version: Nat8;
+        min_num_ones: Nat8;
+        time: Nat64;
+        randomness: Nat32;
+        parent_hash: Blob;
+    };
+
+    public type Solution = {
+        time: Nat64;
+        principal: ?Principal;
+        bytes: Blob;
+    };
+
+    public type SolutionAccepted = {
+        time: Nat64;
+        cur_min_ones: Nat8;
+    };
+
+    public type SolutionRejected = {
+        #InvalidSolution;
+        #ChallengeMismatch;
+        #Other: Text;
+    };
+
+    public type SubmitSolutionResponse = {
+        #Ok: SolutionAccepted;
+        #Err: SolutionRejected;
+    };
+
+    public type GetBestSolutionResponse = {
+        time: Nat64;
+        cur_min_ones: Nat8;
+    };
+
+    public type GetAvailableTokenSupplyResponse = {
+        time: Nat64;
+        total_amount: Nat8;
+    };
+
+    public type Offer = {
+        amount: Nat64;
+        num_attached_cycles: Nat64;
+    };
+
+    public type SubmitOfferResponse = {
+        #Accepted;
+        #Rejected: Text;
+    };
+
+    public type GetBestOfferResponse = {
+        amount: Nat64;
+        num_cycles: Nat64;
+        total_amount: Nat64;
+    };
+
+    // New service functions
+    public func get_challenge() : async GetChallengeResponse {
+        {
+            version = 1;
+            min_num_ones = 5;
+            time = Nat64.fromNat(Int.abs(Time.now()));
+            randomness = 12345;
+            parent_hash = Blob.fromArray([0,1,2,3,4,5]);
+        }
+    };
+
+    public func submit_solution(solution: Solution) : async SubmitSolutionResponse {
+        #Ok({
+            time = Nat64.fromNat(Int.abs(Time.now()));
+            cur_min_ones = 6;
+        })
+    };
+
+    public func get_best_solution() : async GetBestSolutionResponse {
+        {
+            time = Nat64.fromNat(Int.abs(Time.now()));
+            cur_min_ones = 6;
+        }
+    };
+
+    public func get_available_token_supply() : async GetAvailableTokenSupplyResponse {
+        {
+            time = Nat64.fromNat(Int.abs(Time.now()));
+            total_amount = 100;
+        }
+    };
+
+    public func submit_offer(offer: Offer) : async SubmitOfferResponse {
+        #Accepted
+    };
+
+    public func get_best_offer() : async GetBestOfferResponse {
+        {
+            amount = 1000;
+            num_cycles = 5000;
+            total_amount = 10000;
+        }
     };
 
     // System functions for upgrades
