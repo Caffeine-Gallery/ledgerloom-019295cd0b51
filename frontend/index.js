@@ -33,15 +33,15 @@ async function fetchTotalSupply() {
 
 function toggleDarkMode() {
     const body = document.body;
-    body.classList.toggle('light-mode');
-    const isDarkMode = body.classList.contains('light-mode');
+    body.classList.toggle('dark-mode');
+    const isDarkMode = body.classList.contains('dark-mode');
     localStorage.setItem('darkMode', isDarkMode);
 }
 
 function setInitialTheme() {
     const savedTheme = localStorage.getItem('darkMode');
     if (savedTheme === 'true') {
-        document.body.classList.add('light-mode');
+        document.body.classList.add('dark-mode');
         document.getElementById('checkbox').checked = true;
     }
 }

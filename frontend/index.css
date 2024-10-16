@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #00ffff;
-    --secondary-color: #8a2be2;
-    --background-color: #1a1a2e;
-    --text-color: #e0e0e0;
-    --card-background: #16213e;
+    --primary-color: #0056b3;
+    --secondary-color: #6a1b9a;
+    --background-color: #f0f0f0;
+    --text-color: #333333;
+    --card-background: #ffffff;
 }
 
 body {
@@ -16,12 +16,12 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.light-mode {
-    --primary-color: #0056b3;
-    --secondary-color: #6a1b9a;
-    --background-color: #f0f0f0;
-    --text-color: #333333;
-    --card-background: #ffffff;
+body.dark-mode {
+    --primary-color: #00ffff;
+    --secondary-color: #8a2be2;
+    --background-color: #1a1a2e;
+    --text-color: #e0e0e0;
+    --card-background: #16213e;
 }
 
 h1, h2, h3 {
@@ -30,7 +30,7 @@ h1, h2, h3 {
 }
 
 header {
-    background-color: rgba(26, 26, 46, 0.8);
+    background-color: rgba(240, 240, 240, 0.8);
     backdrop-filter: blur(10px);
     padding: 1rem 0;
     position: sticky;
@@ -41,8 +41,8 @@ header {
     align-items: center;
 }
 
-.light-mode header {
-    background-color: rgba(240, 240, 240, 0.8);
+.dark-mode header {
+    background-color: rgba(26, 26, 46, 0.8);
 }
 
 nav ul {
@@ -112,32 +112,32 @@ main {
 .info-item {
     text-align: center;
     padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
-.light-mode .info-item {
-    background-color: rgba(0, 0, 0, 0.05);
+.dark-mode .info-item {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .info-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.light-mode .info-item:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.dark-mode .info-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .action-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1rem;
 }
 
-.light-mode .action-card {
-    background-color: rgba(0, 0, 0, 0.05);
+.dark-mode .action-card {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 input[type="text"], input[type="number"] {
@@ -146,13 +146,13 @@ input[type="text"], input[type="number"] {
     margin-bottom: 1rem;
     border: none;
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     color: var(--text-color);
     font-family: 'Roboto', sans-serif;
 }
 
-.light-mode input[type="text"], .light-mode input[type="number"] {
-    background-color: rgba(0, 0, 0, 0.1);
+.dark-mode input[type="text"], .dark-mode input[type="number"] {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 button {
@@ -177,21 +177,21 @@ button:hover {
 .faq-item {
     margin-bottom: 1.5rem;
     padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
-.light-mode .faq-item {
-    background-color: rgba(0, 0, 0, 0.05);
+.dark-mode .faq-item {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .faq-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-.light-mode .faq-item:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+.dark-mode .faq-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .faq-item h3 {
@@ -200,7 +200,7 @@ button:hover {
 }
 
 footer {
-    background-color: rgba(26, 26, 46, 0.8);
+    background-color: rgba(240, 240, 240, 0.8);
     color: var(--text-color);
     text-align: center;
     padding: 1rem 0;
@@ -209,8 +209,8 @@ footer {
     width: 100%;
 }
 
-.light-mode footer {
-    background-color: rgba(240, 240, 240, 0.8);
+.dark-mode footer {
+    background-color: rgba(26, 26, 46, 0.8);
 }
 
 @media (max-width: 768px) {

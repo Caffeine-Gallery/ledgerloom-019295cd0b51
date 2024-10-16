@@ -21,7 +21,7 @@ actor ICRC2Ledger {
     private let TOKEN_NAME : Text = "Example Token";
     private let TOKEN_SYMBOL : Text = "EXT";
     private let TOKEN_DECIMALS : Nat8 = 8;
-    private let TOKEN_TOTAL_SUPPLY : Nat = 1_000_000 * 10 ** Nat8.toNat(TOKEN_DECIMALS);
+    private let TOKEN_TOTAL_SUPPLY : Nat = 0;
 
     // Ledger state
     private stable var balances : [(Principal, Nat)] = [];
