@@ -23,11 +23,9 @@ export interface GetChallengeResponse {
   'parent_hash' : Uint8Array | number[],
 }
 export interface Offer { 'amount' : bigint, 'num_attached_cycles' : bigint }
-export type Result = { 'ok' : string } |
+export type Result = { 'ok' : null } |
   { 'err' : string };
-export type Result_1 = { 'ok' : null } |
-  { 'err' : string };
-export type Result_2 = { 'ok' : bigint } |
+export type Result_1 = { 'ok' : bigint } |
   { 'err' : string };
 export interface Solution {
   'principal' : [] | [Principal],
@@ -42,14 +40,6 @@ export type SubmitOfferResponse = { 'Rejected' : string } |
   { 'Accepted' : null };
 export type SubmitSolutionResponse = { 'Ok' : SolutionAccepted } |
   { 'Err' : SolutionRejected };
-export interface Transaction {
-  'to' : Principal,
-  'fee' : bigint,
-  'from' : Principal,
-  'memo' : [] | [Uint8Array | number[]],
-  'timestamp' : bigint,
-  'amount' : bigint,
-}
 export interface _SERVICE {
   'get_available_token_supply' : ActorMethod<
     [],
@@ -63,17 +53,10 @@ export interface _SERVICE {
   'icrc2_decimals' : ActorMethod<[], number>,
   'icrc2_name' : ActorMethod<[], string>,
   'icrc2_symbol' : ActorMethod<[], string>,
-  'icrc2_transfer' : ActorMethod<[Principal, bigint], Result_2>,
-  'icrc3_get_account_transactions' : ActorMethod<
-    [Principal, bigint, bigint],
-    Array<Transaction>
-  >,
-  'icrc3_get_transaction' : ActorMethod<[bigint], [] | [Transaction]>,
-  'icrc3_get_transactions' : ActorMethod<[bigint, bigint], Array<Transaction>>,
-  'mint' : ActorMethod<[Principal, bigint], Result_1>,
+  'icrc2_transfer' : ActorMethod<[Principal, bigint], Result_1>,
+  'mint' : ActorMethod<[Principal, bigint], Result>,
   'submit_offer' : ActorMethod<[Offer], SubmitOfferResponse>,
   'submit_solution' : ActorMethod<[Solution], SubmitSolutionResponse>,
-  'upload_wasm_module' : ActorMethod<[Uint8Array | number[]], Result>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];
