@@ -1,3 +1,12 @@
+type Transaction = 
+ record {
+   amount: nat;
+   fee: nat;
+   from: principal;
+   memo: opt blob;
+   timestamp: int;
+   to: principal;
+ };
 type SubmitSolutionResponse = 
  variant {
    Err: SolutionRejected;
@@ -75,6 +84,10 @@ service : {
   icrc2_name: () -> (text) query;
   icrc2_symbol: () -> (text) query;
   icrc2_transfer: (principal, nat) -> (Result_1);
+  icrc3_get_account_transactions: (principal, nat, nat) ->
+   (vec Transaction) query;
+  icrc3_get_transaction: (nat) -> (opt Transaction) query;
+  icrc3_get_transactions: (nat, nat) -> (vec Transaction) query;
   mint: (principal, nat) -> (Result);
   submit_offer: (Offer) -> (SubmitOfferResponse);
   submit_solution: (Solution) -> (SubmitSolutionResponse);

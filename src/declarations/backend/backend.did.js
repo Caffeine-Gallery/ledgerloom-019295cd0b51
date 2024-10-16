@@ -20,6 +20,14 @@ export const idlFactory = ({ IDL }) => {
     'parent_hash' : IDL.Vec(IDL.Nat8),
   });
   const Result_1 = IDL.Variant({ 'ok' : IDL.Nat, 'err' : IDL.Text });
+  const Transaction = IDL.Record({
+    'to' : IDL.Principal,
+    'fee' : IDL.Nat,
+    'from' : IDL.Principal,
+    'memo' : IDL.Opt(IDL.Vec(IDL.Nat8)),
+    'timestamp' : IDL.Int,
+    'amount' : IDL.Nat,
+  });
   const Result = IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text });
   const Offer = IDL.Record({
     'amount' : IDL.Nat64,
@@ -62,6 +70,21 @@ export const idlFactory = ({ IDL }) => {
     'icrc2_name' : IDL.Func([], [IDL.Text], ['query']),
     'icrc2_symbol' : IDL.Func([], [IDL.Text], ['query']),
     'icrc2_transfer' : IDL.Func([IDL.Principal, IDL.Nat], [Result_1], []),
+    'icrc3_get_account_transactions' : IDL.Func(
+        [IDL.Principal, IDL.Nat, IDL.Nat],
+        [IDL.Vec(Transaction)],
+        ['query'],
+      ),
+    'icrc3_get_transaction' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(Transaction)],
+        ['query'],
+      ),
+    'icrc3_get_transactions' : IDL.Func(
+        [IDL.Nat, IDL.Nat],
+        [IDL.Vec(Transaction)],
+        ['query'],
+      ),
     'mint' : IDL.Func([IDL.Principal, IDL.Nat], [Result], []),
     'submit_offer' : IDL.Func([Offer], [SubmitOfferResponse], []),
     'submit_solution' : IDL.Func([Solution], [SubmitSolutionResponse], []),

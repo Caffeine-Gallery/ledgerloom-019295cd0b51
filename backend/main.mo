@@ -1,6 +1,6 @@
+import Bool "mo:base/Bool";
 import Hash "mo:base/Hash";
 import Nat32 "mo:base/Nat32";
-import Nat64 "mo:base/Nat64";
 
 import Array "mo:base/Array";
 import Blob "mo:base/Blob";
@@ -12,6 +12,7 @@ import Int "mo:base/Int";
 import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
 import Nat8 "mo:base/Nat8";
+import Nat64 "mo:base/Nat64";
 import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 import Result "mo:base/Result";
@@ -28,6 +29,19 @@ actor ICRC2Ledger {
     // Ledger state
     private stable var balances : [(Principal, Nat)] = [];
     private var balancesMap = HashMap.HashMap<Principal, Nat>(1, Principal.equal, Principal.hash);
+
+    // ICRC-3 Transaction Log
+    private type Transaction = {
+        timestamp : Int;
+        from : Principal;
+        to : Principal;
+        amount : Nat;
+        fee : Nat;
+        memo : ?Blob;
+    };
+
+    private stable var transactions : [Transaction] = [];
+    private stable var transactionCount : Nat = 0;
 
     // Initialize the ledger
     private func init() : () {
@@ -50,6 +64,18 @@ actor ICRC2Ledger {
         balancesMap.put(caller, fromBalance - amount);
         let toBalance = Option.get(balancesMap.get(to), 0);
         balancesMap.put(to, toBalance + amount);
+
+        // Log the transaction
+        let transaction : Transaction = {
+            timestamp = Time.now();
+            from = caller;
+            to = to;
+            amount = amount;
+            fee = 0;
+            memo = null;
+        };
+        transactions := Array.append(transactions, [transaction]);
+        transactionCount += 1;
 
         #ok(amount)
     };
@@ -75,6 +101,33 @@ actor ICRC2Ledger {
         let balance = Option.get(balancesMap.get(to), 0);
         balancesMap.put(to, balance + amount);
         #ok(())
+    };
+
+    // ICRC-3 Transaction Log functions
+
+    public query func icrc3_get_transactions(start : Nat, length : Nat) : async [Transaction] {
+        let end = Nat.min(start + length, transactions.size());
+        Array.tabulate(end - start, func (i : Nat) : Transaction {
+            transactions[start + i]
+        })
+    };
+
+    public query func icrc3_get_transaction(index : Nat) : async ?Transaction {
+        if (index < transactions.size()) {
+            ?transactions[index]
+        } else {
+            null
+        }
+    };
+
+    public query func icrc3_get_account_transactions(account : Principal, start : Nat, length : Nat) : async [Transaction] {
+        let accountTransactions = Array.filter(transactions, func (tx : Transaction) : Bool {
+            tx.from == account or tx.to == account
+        });
+        let end = Nat.min(start + length, accountTransactions.size());
+        Array.tabulate(end - start, func (i : Nat) : Transaction {
+            accountTransactions[start + i]
+        })
     };
 
     // New types
