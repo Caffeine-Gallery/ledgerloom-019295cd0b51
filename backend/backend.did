@@ -9,11 +9,11 @@ type Result =
    ok;
  };
 service : {
+  icrc1_total_supply: () -> (nat) query;
   icrc2_balance_of: (principal) -> (nat) query;
   icrc2_decimals: () -> (nat8) query;
   icrc2_name: () -> (text) query;
   icrc2_symbol: () -> (text) query;
-  icrc2_total_supply: () -> (nat) query;
   icrc2_transfer: (principal, nat) -> (Result_1);
   mint: (principal, nat) -> (Result);
 }

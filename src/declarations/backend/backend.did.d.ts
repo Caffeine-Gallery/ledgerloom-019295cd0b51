@@ -7,11 +7,11 @@ export type Result = { 'ok' : null } |
 export type Result_1 = { 'ok' : bigint } |
   { 'err' : string };
 export interface _SERVICE {
+  'icrc1_total_supply' : ActorMethod<[], bigint>,
   'icrc2_balance_of' : ActorMethod<[Principal], bigint>,
   'icrc2_decimals' : ActorMethod<[], number>,
   'icrc2_name' : ActorMethod<[], string>,
   'icrc2_symbol' : ActorMethod<[], string>,
-  'icrc2_total_supply' : ActorMethod<[], bigint>,
   'icrc2_transfer' : ActorMethod<[Principal, bigint], Result_1>,
   'mint' : ActorMethod<[Principal, bigint], Result>,
 }

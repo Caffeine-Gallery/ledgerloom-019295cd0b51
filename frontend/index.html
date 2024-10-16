@@ -6,6 +6,7 @@
     <title>ICRC-2 Token Dashboard</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -17,11 +18,12 @@
             </ul>
         </nav>
         <div class="theme-switch-wrapper">
+            <i class="fas fa-sun"></i>
             <label class="theme-switch" for="checkbox">
                 <input type="checkbox" id="checkbox" />
                 <div class="slider round"></div>
             </label>
-            <em>Toggle Dark Mode</em>
+            <i class="fas fa-moon"></i>
         </div>
     </header>
 
@@ -47,8 +49,8 @@
                     <p id="token-decimals"></p>
                 </div>
                 <div class="info-item">
-                    <h3>Total Supply</h3>
-                    <p id="token-supply"></p>
+                    <h3>Maximum Supply</h3>
+                    <p id="token-max-supply">1,000,000</p>
                 </div>
             </div>
         </section>
@@ -61,11 +63,9 @@
                 <p>Balance: <span id="balance-result"></span></p>
             </div>
             <div class="action-card">
-                <h2>Transfer Tokens</h2>
-                <input type="text" id="transfer-to" placeholder="Recipient Principal ID">
-                <input type="number" id="transfer-amount" placeholder="Amount">
-                <button id="transfer-tokens">Transfer</button>
-                <p id="transfer-result"></p>
+                <h2>Total Supply</h2>
+                <button id="fetch-total-supply">Fetch Total Supply</button>
+                <p>Total Supply: <span id="total-supply-result"></span></p>
             </div>
         </section>
 
@@ -85,7 +85,7 @@
             </div>
             <div class="faq-item">
                 <h3>Is there a maximum supply?</h3>
-                <p>Yes, the total supply is fixed and can be viewed in the token information section above.</p>
+                <p>Yes, the maximum supply is fixed at 1,000,000 tokens.</p>
             </div>
         </section>
     </main>

@@ -268,7 +268,8 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-em {
-    margin-left: 10px;
-    font-size: 1rem;
+.fa-sun, .fa-moon {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0 0.5rem;
 }

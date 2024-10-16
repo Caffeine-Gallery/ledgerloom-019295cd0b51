@@ -21,7 +21,7 @@ actor ICRC2Ledger {
     private let TOKEN_NAME : Text = "Example Token";
     private let TOKEN_SYMBOL : Text = "EXT";
     private let TOKEN_DECIMALS : Nat8 = 8;
-    private let TOKEN_TOTAL_SUPPLY : Nat = 1_000_000_000 * 10 ** Nat8.toNat(TOKEN_DECIMALS);
+    private let TOKEN_TOTAL_SUPPLY : Nat = 1_000_000 * 10 ** Nat8.toNat(TOKEN_DECIMALS);
 
     // Ledger state
     private stable var balances : [(Principal, Nat)] = [];
@@ -33,7 +33,11 @@ actor ICRC2Ledger {
     };
     init();
 
-    // ICRC-2 standard functions
+    // ICRC-1 and ICRC-2 standard functions
+
+    public query func icrc1_total_supply() : async Nat {
+        TOKEN_TOTAL_SUPPLY
+    };
 
     public shared({ caller }) func icrc2_transfer(to : Principal, amount : Nat) : async Result.Result<Nat, Text> {
         let fromBalance = Option.get(balancesMap.get(caller), 0);
@@ -50,10 +54,6 @@ actor ICRC2Ledger {
 
     public query func icrc2_balance_of(account : Principal) : async Nat {
         Option.get(balancesMap.get(account), 0)
-    };
-
-    public query func icrc2_total_supply() : async Nat {
-        TOKEN_TOTAL_SUPPLY
     };
 
     public query func icrc2_name() : async Text {
