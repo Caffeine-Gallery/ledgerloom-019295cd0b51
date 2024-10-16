@@ -7,28 +7,85 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
-        <h1>ICRC-2 Token Dashboard</h1>
-        <div id="token-info">
-            <p>Name: <span id="token-name"></span></p>
-            <p>Symbol: <span id="token-symbol"></span></p>
-            <p>Decimals: <span id="token-decimals"></span></p>
-            <p>Total Supply: <span id="token-supply"></span></p>
-        </div>
-        <div id="balance-check">
-            <h2>Check Balance</h2>
-            <input type="text" id="balance-principal" placeholder="Enter Principal ID">
-            <button id="check-balance">Check Balance</button>
-            <p>Balance: <span id="balance-result"></span></p>
-        </div>
-        <div id="transfer">
-            <h2>Transfer Tokens</h2>
-            <input type="text" id="transfer-to" placeholder="Recipient Principal ID">
-            <input type="number" id="transfer-amount" placeholder="Amount">
-            <button id="transfer-tokens">Transfer</button>
-            <p id="transfer-result"></p>
-        </div>
-    </div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>ICRC-2 Token Dashboard</h1>
+            <p>Welcome to the future of decentralized finance</p>
+        </section>
+
+        <section id="about" class="token-info">
+            <h2>Token Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Name</h3>
+                    <p id="token-name"></p>
+                </div>
+                <div class="info-item">
+                    <h3>Symbol</h3>
+                    <p id="token-symbol"></p>
+                </div>
+                <div class="info-item">
+                    <h3>Decimals</h3>
+                    <p id="token-decimals"></p>
+                </div>
+                <div class="info-item">
+                    <h3>Total Supply</h3>
+                    <p id="token-supply"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="actions" class="token-actions">
+            <div class="action-card">
+                <h2>Check Balance</h2>
+                <input type="text" id="balance-principal" placeholder="Enter Principal ID">
+                <button id="check-balance">Check Balance</button>
+                <p>Balance: <span id="balance-result"></span></p>
+            </div>
+            <div class="action-card">
+                <h2>Transfer Tokens</h2>
+                <input type="text" id="transfer-to" placeholder="Recipient Principal ID">
+                <input type="number" id="transfer-amount" placeholder="Amount">
+                <button id="transfer-tokens">Transfer</button>
+                <p id="transfer-result"></p>
+            </div>
+        </section>
+
+        <section id="faq" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is ICRC-2?</h3>
+                <p>ICRC-2 is a token standard for the Internet Computer, providing a consistent interface for fungible tokens.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How can I get these tokens?</h3>
+                <p>Tokens can be acquired through various means, including exchanges, airdrops, or participation in the project's ecosystem.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What can I do with these tokens?</h3>
+                <p>These tokens can be used for various purposes within the ecosystem, including governance, transactions, and accessing specific features.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is there a maximum supply?</h3>
+                <p>Yes, the total supply is fixed and can be viewed in the token information section above.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ICRC-2 Token Project. All rights reserved.</p>
+    </footer>
+
     <script type="module" src="index.js"></script>
 </body>
 </html>
