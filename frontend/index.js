@@ -40,8 +40,24 @@ async function transferTokens() {
     }
 }
 
+function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('light-mode');
+    const isDarkMode = body.classList.contains('light-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+function setInitialTheme() {
+    const savedTheme = localStorage.getItem('darkMode');
+    if (savedTheme === 'true') {
+        document.body.classList.add('light-mode');
+        document.getElementById('checkbox').checked = true;
+    }
+}
+
 document.getElementById('check-balance').addEventListener('click', checkBalance);
 document.getElementById('transfer-tokens').addEventListener('click', transferTokens);
+document.getElementById('checkbox').addEventListener('change', toggleDarkMode);
 
 // Smooth scrolling for navigation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -54,3 +70,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 updateTokenInfo();
+setInitialTheme();

@@ -4,7 +4,6 @@
     --background-color: #1a1a2e;
     --text-color: #e0e0e0;
     --card-background: #16213e;
-    --neon-glow: 0 0 10px var(--primary-color);
 }
 
 body {
@@ -14,6 +13,15 @@ body {
     background-color: var(--background-color);
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode {
+    --primary-color: #0056b3;
+    --secondary-color: #6a1b9a;
+    --background-color: #f0f0f0;
+    --text-color: #333333;
+    --card-background: #ffffff;
 }
 
 h1, h2, h3 {
@@ -28,13 +36,19 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.light-mode header {
+    background-color: rgba(240, 240, 240, 0.8);
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
     display: flex;
-    justify-content: center;
 }
 
 nav ul li {
@@ -50,7 +64,6 @@ nav ul li a {
 
 nav ul li a:hover {
     color: var(--secondary-color);
-    text-shadow: var(--neon-glow);
 }
 
 main {
@@ -68,7 +81,6 @@ main {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
 }
 
 .token-info, .token-actions, .faq {
@@ -82,7 +94,7 @@ main {
 
 .token-info:hover, .token-actions:hover, .faq:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .info-grid {
@@ -99,8 +111,16 @@ main {
     transition: background-color 0.3s ease;
 }
 
+.light-mode .info-item {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .info-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .info-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .action-card {
@@ -108,6 +128,10 @@ main {
     border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1rem;
+}
+
+.light-mode .action-card {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 input[type="text"], input[type="number"] {
@@ -119,6 +143,10 @@ input[type="text"], input[type="number"] {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--text-color);
     font-family: 'Roboto', sans-serif;
+}
+
+.light-mode input[type="text"], .light-mode input[type="number"] {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -148,8 +176,16 @@ button:hover {
     transition: background-color 0.3s ease;
 }
 
+.light-mode .faq-item {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .faq-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .faq-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .faq-item h3 {
@@ -167,24 +203,72 @@ footer {
     width: 100%;
 }
 
+.light-mode footer {
+    background-color: rgba(240, 240, 240, 0.8);
+}
+
 @media (max-width: 768px) {
     .info-grid {
         grid-template-columns: 1fr;
     }
 }
 
-@keyframes neon-pulse {
-    0% {
-        text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-    }
-    50% {
-        text-shadow: 0 0 20px var(--primary-color), 0 0 35px var(--primary-color);
-    }
-    100% {
-        text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-    }
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
 }
 
-h1, h2 {
-    animation: neon-pulse 2s infinite;
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+em {
+    margin-left: 10px;
+    font-size: 1rem;
 }
